@@ -1,78 +1,39 @@
 package hust.soict.dsai.aims.disc;
 
-public class DigitalVideoDisc {
-    private static int nbDigitalVideoDiscs = 0;
-    private int id;
-    private String title;
-    private String category;
-    private String director;
-    private int length;
-    private float cost;
+import hust.soict.dsai.aims.media.Disc;
+import hust.soict.dsai.aims.media.Playable;
 
-    public String getTitle() {
-        return title;
-    }
-    
-    public String getCategory() {
-        return category;
-    }
-   
-    public String getDirector() {
-        return director;
-    }
-    
-    public int getLength() {
-        return length;
-    }
-   
-    public float getCost() {
-        return cost;
-    }
+public class DigitalVideoDisc extends Disc implements Playable {
+    private static int nbDigitalVideoDiscs = 0; // Số lượng DVD đã tạo
 
-    // Constructor with only title
+    // Constructor chỉ có title
     public DigitalVideoDisc(String title) {
-        super();
-        this.title = title;
-        nbDigitalVideoDiscs++;  
-        this.id = getNbDigitalVideoDiscs();
+        super(++nbDigitalVideoDiscs, title, null, 0.0f, 0, null); // Gán id tự động, category, cost, length mặc định
     }
 
-    // Constructor with category, title, and cost
-    public DigitalVideoDisc(String title, String category,  float cost) {
-        this.category = category;
-        this.title = title;
-        this.cost = cost;
-        nbDigitalVideoDiscs++;  
-        this.id = getNbDigitalVideoDiscs();
+    // Constructor với category, title và cost
+    public DigitalVideoDisc(String title, String category, float cost) {
+        super(++nbDigitalVideoDiscs, title, category, cost, 0, null);
     }
 
-    // Constructor with director, category, title, and cost
-    public DigitalVideoDisc(String title, String category,String director, float cost) {
-        this.director = director;
-        this.category = category;
-        this.title = title;
-        this.cost = cost;
-        nbDigitalVideoDiscs++;  
-        this.id = getNbDigitalVideoDiscs();
+    // Constructor với director, category, title và cost
+    public DigitalVideoDisc(String title, String category, String director, float cost) {
+        super(++nbDigitalVideoDiscs, title, category, cost, 0, director);
     }
 
-    // Constructor with director, category, title, length, and cost
-    public DigitalVideoDisc(String title, String category ,String director, int length, float cost) {
-        this.director = director;
-        this.category = category;
-        this.title = title;
-        this.cost = cost;
-        this.length = length;
-        nbDigitalVideoDiscs++;  
-        this.id = getNbDigitalVideoDiscs();
+    // Constructor với director, category, title, length và cost
+    public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
+        super(++nbDigitalVideoDiscs, title, category, cost, length, director);
     }
-    
-    
-    // vì nbDigitalVideoDiscs và là private nên để có thể trích xuất giá trị thì phải tạo một getter cho nó
-    public static int getNbDigitalVideoDiscs() {
-        return nbDigitalVideoDiscs;
+
+    // Implement phương thức play() từ Playable
+    @Override
+    public void play() {
+        if (getLength() > 0) {
+            System.out.println("Playing DVD: " + getTitle());
+            System.out.println("DVD length: " + getLength() + " minutes");
+        } else {
+            System.out.println("DVD " + getTitle() + " cannot be played due to invalid length.");
+        }
     }
-    public int getId() {
-        return id;  // Trả về id của DVD
-    }    
 }

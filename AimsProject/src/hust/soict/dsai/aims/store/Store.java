@@ -1,49 +1,41 @@
-package lab02.src;
+package hust.soict.dsai.aims.store;
+
+import hust.soict.dsai.aims.media.Media;
+import java.util.ArrayList;
 
 public class Store {
+    // Maximum number of items allowed in the store
     private static final int MAX_ITEMS_IN_STORE = 100;
-    private DigitalVideoDisc[] itemsInStore = new DigitalVideoDisc[MAX_ITEMS_IN_STORE];
-    private int qtyInStore = 0;
 
-    // Phương thức thêm DVD vào cửa hàng
-    public void addDVD(DigitalVideoDisc disc) {
-        if (qtyInStore < MAX_ITEMS_IN_STORE) {
-            itemsInStore[qtyInStore] = disc;
-            qtyInStore++;
-            System.out.println("DVD \"" + disc.getTitle() + "\" has been added to the store.");
+    // List to store Media items
+    private ArrayList<Media> itemsInStore = new ArrayList<>();
+
+    // Add a Media item to the store
+    public void addMedia(Media media) {
+        if (itemsInStore.size() < MAX_ITEMS_IN_STORE) {
+            itemsInStore.add(media);
+            System.out.println("Media \"" + media.getTitle() + "\" has been added to the store.");
         } else {
-            System.out.println("The store is full. Cannot add more DVDs.");
+            System.out.println("The store is full. Cannot add \"" + media.getTitle() + "\".");
         }
     }
 
-    // Phương thức xóa DVD khỏi cửa hàng
-    public void removeDVD(DigitalVideoDisc disc) {
-        boolean found = false;
-        for (int i = 0; i < qtyInStore; i++) {
-            if (itemsInStore[i] == disc) {
-                found = true;
-                // Dịch chuyển các phần tử để lấp khoảng trống
-                for (int j = i; j < qtyInStore - 1; j++) {
-                    itemsInStore[j] = itemsInStore[j + 1];
-                }
-                itemsInStore[qtyInStore - 1] = null;
-                qtyInStore--;
-                System.out.println("DVD \"" + disc.getTitle() + "\" has been removed from the store.");
-                break;
-            }
-        }
-        if (!found) {
-            System.out.println("DVD \"" + disc.getTitle() + "\" does not exist in the store.");
+    // Remove a Media item from the store
+    public void removeMedia(Media media) {
+        if (itemsInStore.remove(media)) {
+            System.out.println("Media \"" + media.getTitle() + "\" has been removed from the store.");
+        } else {
+            System.out.println("Media \"" + media.getTitle() + "\" does not exist in the store.");
         }
     }
 
-    // In danh sách các DVD trong cửa hàng
+    // Print details of Media items in the store
     public void printStoreDetails() {
         System.out.println("***********************STORE***********************");
-        System.out.println("Available DVDs in Store:");
-        for (int i = 0; i < qtyInStore; i++) {
-            DigitalVideoDisc disc = itemsInStore[i];
-            System.out.println((i + 1) + ". DVD - " + disc.getTitle() + " - " + disc.getCategory() + " - " + disc.getDirector() + " - " + disc.getLength() + " mins: " + disc.getCost() + " $");
+        System.out.println("Available Items in Store:");
+        for (int i = 0; i < itemsInStore.size(); i++) {
+            Media media = itemsInStore.get(i);
+            System.out.println((i + 1) + ". " + media.getTitle() + " - " + media.getCategory() + ": " + media.getCost() + " $");
         }
         System.out.println("**************************************************");
     }
