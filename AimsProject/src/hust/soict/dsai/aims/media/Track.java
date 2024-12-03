@@ -30,19 +30,16 @@ public class Track implements Playable {
         return length == track.length && title.equals(track.title);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, length);
-    }
 
     // Implement phương thức play()
     @Override
     public void play() {
         if (length > 0) {
-            System.out.println("Playing track: " + title);
-            System.out.println("Track length: " + length);
+            System.out.println("Playing track: " + getTitle());
+            System.out.println("Track length: " + getLength());
         } else {
-            System.out.println("Track " + title + " cannot be played due to invalid length.");
+            System.out.println("Track " + getTitle() + " cannot be played due to invalid length.");
         }
     }
+     
 }

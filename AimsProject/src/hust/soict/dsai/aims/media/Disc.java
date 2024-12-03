@@ -19,4 +19,8 @@ public class Disc extends Media {
     public String getDirector() {
         return director;
     }
+    @Override
+    public String toString() {
+        return "CD title: " + getTitle() + ", Artist: " + getArtist();
+    }
 }

@@ -36,4 +36,8 @@ public class DigitalVideoDisc extends Disc implements Playable {
             System.out.println("DVD " + getTitle() + " cannot be played due to invalid length.");
         }
     }
+    @Override
+    public String toString() {
+        return "DVD title: " + getTitle() + ", Director: " + getDirector();
+    }
 }
